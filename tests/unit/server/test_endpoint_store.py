@@ -1,5 +1,5 @@
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from http import HTTPStatus
 
 import pytest
@@ -115,7 +115,7 @@ async def test_EndpointStore_cleanup():
     """Tests that the cleanup operation correctly wipes out expired endpoints"""
     store = EndpointStore(max_active_endpoints=99, max_endpoint_notifications=99)
 
-    now = datetime(2017, 3, 4, 5, 6, 7, tzinfo=timezone.utc)
+    now = datetime(2017, 3, 4, 5, 6, 7, tzinfo=UTC)
     max_idle = timedelta(seconds=60)
     max_duration = timedelta(seconds=180)
 

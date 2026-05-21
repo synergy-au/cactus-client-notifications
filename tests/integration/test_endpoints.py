@@ -178,9 +178,9 @@ async def test_endpoint_cleanup(client_session: ClientSession):
     # Touch endpoint 1/2 (they should be live) but endpoint 3 should be cleaned up now
     assert (await send_notification(client_session, f"/webhook/{endpoint1.endpoint_id}", "POST", "req1")) == 200
     assert (await send_notification(client_session, f"/webhook/{endpoint2.endpoint_id}", "POST", "req2")) == 200
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")
-    ) == 404, "This should've expired by now"
+    assert (await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")) == 404, (
+        "This should've expired by now"
+    )
 
     await asyncio.sleep(1)
 
@@ -190,25 +190,25 @@ async def test_endpoint_cleanup(client_session: ClientSession):
     await asyncio.sleep(1.1)
 
     assert (await send_notification(client_session, f"/webhook/{endpoint1.endpoint_id}", "POST", "req1")) == 200
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint2.endpoint_id}", "POST", "req2")
-    ) == 404, "This should've expired by now"
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")
-    ) == 404, "This should've expired by now"
+    assert (await send_notification(client_session, f"/webhook/{endpoint2.endpoint_id}", "POST", "req2")) == 404, (
+        "This should've expired by now"
+    )
+    assert (await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")) == 404, (
+        "This should've expired by now"
+    )
 
     # Max wall time has expired for endpoint 1
     await asyncio.sleep(1.1)
 
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint1.endpoint_id}", "POST", "req1")
-    ) == 404, "This should've expired by now"
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint2.endpoint_id}", "POST", "req2")
-    ) == 404, "This should've expired by now"
-    assert (
-        await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")
-    ) == 404, "This should've expired by now"
+    assert (await send_notification(client_session, f"/webhook/{endpoint1.endpoint_id}", "POST", "req1")) == 404, (
+        "This should've expired by now"
+    )
+    assert (await send_notification(client_session, f"/webhook/{endpoint2.endpoint_id}", "POST", "req2")) == 404, (
+        "This should've expired by now"
+    )
+    assert (await send_notification(client_session, f"/webhook/{endpoint3.endpoint_id}", "POST", "req3")) == 404, (
+        "This should've expired by now"
+    )
 
 
 async def test_server_info(client_session: ClientSession):

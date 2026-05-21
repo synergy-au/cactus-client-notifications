@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 
 def utc_now() -> datetime:
     """Returns an unambiguous timezone aware (UTC) datetime representing this moment"""
-    return datetime.now(tz=timezone.utc)
+    return datetime.now(tz=UTC)
 
 
 def relative_time(delta: timedelta) -> str:
@@ -17,7 +17,7 @@ def relative_time(delta: timedelta) -> str:
 
     magnitude = abs(total_seconds)
     if magnitude < 5:
-        return f"{sign}{int(magnitude*1000)}ms"
+        return f"{sign}{int(magnitude * 1000)}ms"
     elif magnitude < 120:
         return f"{sign}{magnitude:.1f}s"
     else:

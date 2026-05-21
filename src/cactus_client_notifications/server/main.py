@@ -3,8 +3,8 @@ import contextlib
 import logging
 import os
 import sys
+from collections.abc import AsyncGenerator
 from datetime import timedelta
-from typing import AsyncGenerator
 
 from aiohttp import web
 from cactus_schema.notification import uri
@@ -28,7 +28,6 @@ async def periodic_task(app: web.Application) -> None:
     store = app[shared.APPKEY_NOTIFICATION_STORE]
 
     while True:
-
         # Sleep first - we don't need to initiate a cleanup immediately
         await asyncio.sleep(server_settings.cleanup_frequency.total_seconds())
 

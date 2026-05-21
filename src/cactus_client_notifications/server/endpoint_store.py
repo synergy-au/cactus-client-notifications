@@ -5,7 +5,6 @@ import secrets
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from http import HTTPStatus
-from typing import Any
 
 from aiohttp import web
 from cactus_schema.notification import CollectedHeader, CollectedNotification
@@ -15,10 +14,10 @@ from cactus_client_notifications.server.time import utc_now
 logger = logging.getLogger(__name__)
 
 
-class NotificationException(Exception):
+class NotificationException(Exception):  # noqa: N818
     status_code: HTTPStatus  # What status code should be served by whatever is upstream of this request?
 
-    def __init__(self, status_code: HTTPStatus, *args: Any) -> None:  # noqa: B042
+    def __init__(self, status_code: HTTPStatus, *args: object) -> None:
         self.status_code = status_code
         super().__init__(*args)
 
@@ -73,7 +72,7 @@ class EndpointStore:
 
     _store: dict[str, EndpointData]
 
-    def __init__(self, max_active_endpoints: int, max_endpoint_notifications: int):
+    def __init__(self, max_active_endpoints: int, max_endpoint_notifications: int) -> None:
         self.lock = asyncio.Lock()
         self.max_active_endpoints = max_active_endpoints
         self.max_endpoint_notifications = max_endpoint_notifications
