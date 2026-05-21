@@ -11,9 +11,9 @@ Any mutual TLS / other considerations are expected to be managed at the point of
 
 ## Development
 
-`pip install cactus_client_notifications` will install all dependencies for running the server
+`uv sync` will install all dependencies for running the server
 
-`pip install cactus_client_notifications[dev,test]` will install ALL dependencies for development / tests
+`uv sync --all-extras` will install ALL dependencies for development / tests
 
 ## Configuration
 
